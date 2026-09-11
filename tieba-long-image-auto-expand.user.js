@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         贴吧旧版长图自动展开
 // @namespace    https://github.com/yourname/tieba-long-image-auto-expand
-// @version      0.3.0
-// @description  百度贴吧电脑端旧版:①自动展开长图为完整图片;②自动展开全部楼中楼回复;③隐藏页面右侧推广/辅助按钮(辅助模式、下载APP、魔法道具、神来一句、分享)及"爱逛的吧"模块。免去手动点击。
+// @version      0.3.1
+// @description  百度贴吧电脑端旧版:①自动展开长图为完整图片;②自动展开全部楼中楼回复;③隐藏页面右侧推广/辅助按钮(辅助模式、下载APP、魔法道具、神来一句、分享、我要反馈)及"爱逛的吧"模块。免去手动点击。
 // @author       you
 // @match        https://tieba.baidu.com/p/*
 // @run-at       document-end
@@ -85,7 +85,8 @@
     //     <li class="tbui_aside_fbar_button tbui_fbar_props"><a>魔法道具</a></li>
     //     <li class="tbui_aside_fbar_button tbui_fbar_tsukkomi"><a>神来一句</a></li>
     //     <li class="tbui_aside_fbar_button tbui_fbar_share"><a>分享</a></li>
-    //     ...(反馈、返回顶部等保留)
+    //     <li class="tbui_aside_fbar_button tbui_fbar_feedback"><a href="/pmc/feedback">我要反馈</a></li>
+    //     ...(返回顶部等保留)
     // </ul>
     // 右侧栏另有"下载APP"推广块 div.app_download_box,与悬浮条下载按钮一并隐藏。
 
@@ -96,6 +97,7 @@
         'tbui_fbar_props',         // 魔法道具
         'tbui_fbar_tsukkomi',      // 神来一句
         'tbui_fbar_share',         // 分享
+        'tbui_fbar_feedback',      // 我要反馈
     ];
 
     // 隐藏右侧推广/辅助按钮与"爱逛的吧"模块
@@ -115,14 +117,15 @@
         // "爱逛的吧"模块按需渲染,class 不稳定,改用标题文本定位其模块容器
         const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
             acceptNode(node) {
-                return (node.textContent || '').trim() === '爱逛的吧'
+                // 包含匹配,兼容标题文本带空格等其他排版字符的情况
+                return (node.textContent || '').includes('爱逛的吧')
                     ? NodeFilter.FILTER_ACCEPT
                     : NodeFilter.FILTER_REJECT;
             },
         });
         let textNode;
         while ((textNode = walker.nextNode())) {
-            // 向上查找带右侧栏特征的模块容器;找不到就隐藏标题所在模块(向上两层)
+            // 优先向上查找带右侧栏特征的模块容器;找不到就隐藏标题所在 li 或向上两层的模块包装
             let el = textNode.parentElement;
             let container = null;
             for (let i = 0; el && i < 6; i++) {
@@ -133,7 +136,12 @@
                 }
                 el = el.parentElement;
             }
-            (container || textNode.parentElement.parentElement).style.display = 'none';
+            const target = container
+                || textNode.parentElement.closest('li, div, dl')
+                || textNode.parentElement.parentElement;
+            if (target) {
+                target.style.display = 'none';
+            }
         }
     }
 
