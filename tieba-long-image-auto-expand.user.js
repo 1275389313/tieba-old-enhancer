@@ -8,6 +8,8 @@
 // @run-at       document-end
 // @grant        none
 // @license      MIT
+// @updateURL    https://cdn.jsdelivr.net/gh/1275389313/tieba-old-enhancer@main/tieba-long-image-auto-expand.meta.js
+// @downloadURL  https://cdn.jsdelivr.net/gh/1275389313/tieba-old-enhancer@main/tieba-long-image-auto-expand.user.js
 // ==/UserScript==
 
 (function () {
