@@ -6,7 +6,7 @@
 
 | 脚本 | 版本 | 说明 |
 |------|------|------|
-| [tieba-long-image-auto-expand.user.js](tieba-long-image-auto-expand.user.js) | 0.2.0 | 帖子中的长图默认只显示前 500px，需要点击"展开"才能看完整；楼中楼回复超过 5 条后默认折叠，需点击"查看更多回复"展开。脚本加载后自动展开长图为完整图片、自动展开全部楼中楼回复，并监听 AJAX 动态加载的楼层 |
+| [tieba-long-image-auto-expand.user.js](tieba-long-image-auto-expand.user.js) | 0.3.0 | ① 自动展开长图为完整图片；② 自动展开全部楼中楼回复（免点"查看更多回复"）；③ 隐藏页面右侧推广/辅助按钮（辅助模式、下载APP、魔法道具、神来一句、分享）及"爱逛的吧"模块，并监听 AJAX 动态加载的楼层 |
 
 ## 安装方法
 
