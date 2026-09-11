@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         贴吧旧版长图自动展开
 // @namespace    https://github.com/yourname/tieba-long-image-auto-expand
-// @version      0.2.0
-// @description  百度贴吧电脑端旧版:①帖子里的长图默认只显示前 500px,需要点击"展开"才能看完整,脚本自动把所有长图展开为完整图片;②楼中楼回复超过 5 条后默认不显示,脚本自动点击"查看更多回复",将全部回复展开,免去手动点击。
+// @version      0.3.0
+// @description  百度贴吧电脑端旧版:①自动展开长图为完整图片;②自动展开全部楼中楼回复;③隐藏页面右侧推广/辅助按钮(辅助模式、下载APP、魔法道具、神来一句、分享)及"爱逛的吧"模块。免去手动点击。
 // @author       you
 // @match        https://tieba.baidu.com/p/*
 // @run-at       document-end
